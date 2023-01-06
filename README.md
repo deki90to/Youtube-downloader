@@ -1,5 +1,5 @@
 # Youtube-video-downloader
-Simple program for downloading youtube-videos using Python-Tkinter
+Simple program for downloading youtube videos and audios using Python-Tkinter
 
 Requirements:
 
