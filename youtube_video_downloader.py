@@ -2,51 +2,74 @@ from tkinter import *
 import tkinter.messagebox
 from pytube import YouTube
 from sys import argv
-
+import os
 
 root = Tk()
-root.geometry('400x100')
+root.geometry('400x150')
 root['bg']='#004038'
-root.title('Convertor to MP4')
+root.title('Youtube Downloader')
+
 
 
 def clear_text():
-   convert_entry.delete(0, END)
+   convert_video_entry.delete(0, END)
+   convert_audio_entry.delete(0, END)
+
+input_video_url = StringVar()
+input_audio_url = StringVar()
 
 
-input_value = StringVar()
+def download(get_video_link=input_video_url.get() if input_video_url else None, get_audio_link=input_audio_url.get() if input_audio_url else None):
 
-def video_download(get_link = input_value.get()):
+    video_link = input_video_url.get()
+    audio_link = input_audio_url.get()
 
-    link = input_value.get()
+    if video_link:
+        yt_video = YouTube(video_link)
+        print('\nStart downloading... Please wait...\n')
 
-    if not link or 'youtube' not in link:
+        yvd = yt_video.streams.get_highest_resolution()
+        yvd.download("C:\\Users\\Dejan\\Downloads\\Videos")
+
+        print(f'\n{yt_video.title} Downloaded successfully')
+        tkinter.messagebox.showinfo("Download finished", f"{yt_video.title} is saved on your pc")
+
+
+    if audio_link:
+        yt_audio = YouTube(audio_link)
+        print('\nStart downloading... Please wait...\n')
+
+        yad = yt_audio.streams.filter(only_audio=True).first()
+        out_file = yad.download("C:\\Users\\Dejan\\Downloads\\Audios")
+        base, ext = os.path.splitext(out_file)
+        new_file = base + '.mp3'
+        os.rename(out_file, new_file)
+
+        print(f'\n{yt_audio.title} Downloaded successfully')
+        tkinter.messagebox.showinfo("Download finished", f"{yt_audio.title} is saved on your pc")
+
+
+    if 'https://www.youtube.com/' not in video_link and 'https://www.youtube.com/' not in audio_link:
         tkinter.messagebox.showinfo("File not found", "Choose video-url to download")
         clear_text()
-    else:
-        yt = YouTube(link)
-
-        print('Start downloading... Please wait...\n')
-        print(f"Title {yt.title}")
-
-        yd = yt.streams.get_highest_resolution()
-        yd.download("C:\\Users\\Dejan\\Downloads")
-
-        print('\nDownload finished')
-        tkinter.messagebox.showinfo("Download finished", "Video is saved on your pc")
-        clear_text()
 
 
-label = Label(root, text = 'YT Video Downloader', bg = '#004038', fg = 'white')
-label.pack()
+#VIDEO
+video_label = Label(root, text = 'Video Downloader', bg = '#004038', fg = 'white').pack()
+get_video_input = Entry(root, width = 100, textvar = input_video_url)
+get_video_input.pack()
 
-convert_entry = Entry(root, width = 100, textvar = input_value)
-convert_entry.pack()
+#AUDIO
+audio_label = Label(root, text = 'Audio Downloader', bg = '#004038', fg = 'white').pack()
+get_audio_input = Entry(root, width = 100, textvar = input_audio_url)
+get_audio_input.pack()
 
-download_button = Button(root, width = 80, bg = 'green', fg = 'white', relief = 'sunken', text = 'Download',  command = video_download)
-download_button.pack()
+#CONFIRM
+download_video_button = Button(root, width = 80, bg = 'green', fg = 'white', relief = 'sunken', text = 'Download',  command = download).pack()
 
+#CLEAR FIELDS
 Button(root, text="Clear", command=clear_text, font=('Helvetica bold',10)).pack(pady=5)
+
 
 
 root.mainloop()
