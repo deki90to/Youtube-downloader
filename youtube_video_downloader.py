@@ -33,6 +33,7 @@ def download(get_video_link=input_video_url.get() if input_video_url else None, 
 
         print(f'\n{yt_video.title} Downloaded successfully')
         tkinter.messagebox.showinfo("Download finished", f"{yt_video.title} is saved on your pc")
+        clear_text()
 
 
     if audio_link:
@@ -47,6 +48,7 @@ def download(get_video_link=input_video_url.get() if input_video_url else None, 
 
         print(f'\n{yt_audio.title} Downloaded successfully')
         tkinter.messagebox.showinfo("Download finished", f"{yt_audio.title} is saved on your pc")
+        clear_text()
 
 
     if 'https://www.youtube.com/' not in video_link and 'https://www.youtube.com/' not in audio_link:
