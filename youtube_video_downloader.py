@@ -12,8 +12,8 @@ root.title('Youtube Downloader')
 
 
 def clear_text():
-   convert_video_entry.delete(0, END)
-   convert_audio_entry.delete(0, END)
+   get_video_input.delete(0, END)
+   get_audio_input.delete(0, END)
 
 input_video_url = StringVar()
 input_audio_url = StringVar()
