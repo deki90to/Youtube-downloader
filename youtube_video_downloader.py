@@ -30,7 +30,7 @@ def download(get_video_link=input_video_url.get() if input_video_url else None, 
         print('\nStart downloading... Please wait...\n')
 
         yvd = yt_video.streams.get_highest_resolution()
-        yvd.download("C:\\Users\\Dejan\\Downloads\\Videos")
+        yvd.download() #example "C:\\Users\\Username\\Downloads\\Videos"
 
         print(f'\n{yt_video.title} Downloaded successfully')
         tkinter.messagebox.showinfo("Download finished", f"{yt_video.title} is saved on your pc")
@@ -42,7 +42,7 @@ def download(get_video_link=input_video_url.get() if input_video_url else None, 
         print('\nStart downloading... Please wait...\n')
 
         yad = yt_audio.streams.filter(only_audio=True).first()
-        out_file = yad.download("C:\\Users\\Dejan\\Downloads\\Audios")
+        out_file = yad.download() #example "C:\\Users\\Username\\Downloads\\Audio"
         base, ext = os.path.splitext(out_file)
         new_file = base + '.mp3'
         os.rename(out_file, new_file)
