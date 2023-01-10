@@ -1,5 +1,5 @@
 # Youtube downloader
-Simple program for downloading youtube videos or audios using Python
+Simple program for downloading youtube video or audio using Python
 
 Requirements:
 
